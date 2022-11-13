@@ -3,14 +3,14 @@ package org.skyer.goods.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import com.gitee.sunchenbin.mybatis.actable.annotation.IsAutoIncrement;
+import com.gitee.sunchenbin.mybatis.actable.annotation.IsKey;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import lombok.experimental.Accessors;
@@ -37,6 +37,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @Table(name="sgoo_brand")
 @ApiModel(description="商品品牌表")
+@Entity
 public class Brand extends AuditDomain {
 
     public static String NAME = "name";
@@ -48,30 +49,40 @@ public class Brand extends AuditDomain {
     @Id
     @GeneratedValue
     @Encrypt
+    @IsKey
+    @IsAutoIncrement
     private Long id;
 
     @ApiModelProperty(value = "编码")
+    @Column(length = 20)
     private String code;
 
     @ApiModelProperty(value = "logo")
+    @Column(length = 100)
     private String logo;
 
     @ApiModelProperty(value = "生成商")
+    @Column(length = 100)
     private String manufacturer;
 
     @ApiModelProperty(value = "品牌名称")
+    @Column(length = 20)
     private String name;
 
     @ApiModelProperty(value = "备注")
+    @Column(length = 1024)
     private String remark;
 
     @ApiModelProperty(value = "状态1,启用；0禁用")
+    @Column
     private Integer status;
 
     @ApiModelProperty(value = "删除状态")
+    @Column
     private Boolean deleteFlag;
 
     @ApiModelProperty(value = "租户Id")
+    @Column
     @Encrypt
     private Long tenantId;
 
